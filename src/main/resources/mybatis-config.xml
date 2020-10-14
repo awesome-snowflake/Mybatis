@@ -4,9 +4,17 @@
 
 <!--mybatis配置-->
 <configuration>
+    <!--添加properties配置文件路径(外部配置、动态替换)-->
+    <properties resource="jdbc.properties"></properties>
+    <!-- 注意书写位置 -->
+    <settings>
+        <setting name="cacheEnabled" value="true"/> <!-- mybaits-config.xml中开启全局缓存（默认开启） -->
+    </settings>
     <!--取别名-->
     <typeAliases>
         <typeAlias type="com.wxf.entity.User" alias="user"></typeAlias>
+        <!--自动扫描包，将原类名作为别名-->
+        <package name="com.wxf.entity"/>
     </typeAliases>
     <!--JDBC环境配置、选中默认环境-->
     <environments default="MySqlDB">
@@ -15,12 +23,12 @@
             <!--事务管理-->
             <transactionManager type="JDBC"/>
             <!--连接池-->
-            <dataSource type="org.apache.ibatis.datasource.pooled.PooledDataSourceFactory">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
                 <!-- &转义&amp; -->
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;characterEncoding=utf-8"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
@@ -30,6 +38,11 @@
     <mappers>
         <!--注册Mapper文件的所在位置-->
         <mapper resource="com/wxf/dao/UserDaoMapper.xml"/>
+        <mapper resource="com/wxf/dao/ProductDaoMapper.xml"/>
+        <mapper resource="com/wxf/dao/ManagerDaoMapper.xml"/>
+        <mapper resource="com/wxf/dao/PassengerDaoMapper.xml"/>
+        <mapper resource="com/wxf/dao/DepartmentMapper.xml"/>
+        <mapper resource="com/wxf/dao/EmployeeMapper.xml"/>
     </mappers>
 
 </configuration>

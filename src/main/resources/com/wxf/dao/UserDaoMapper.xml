@@ -5,4 +5,19 @@
     <select id="selectUserById" parameterType="Integer" resultType="user">
         select * from tb_user where id = #{id}
     </select>
+    <select id="selectUserByIdAndPassword" resultType="user">
+        select * from tb_user where id = #{id} and password=#{password}
+    </select>
+    <!--模糊查询-->
+    <select id="selectUserByName" resultType="user">
+        select * from tb_user where name like concat('%',#{name},'%')
+    </select>
+    
+    <!--批量删除-->
+    <delete id="deleteByIds">
+        delete from tb_user where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

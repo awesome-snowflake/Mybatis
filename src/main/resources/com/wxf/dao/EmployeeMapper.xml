@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxf.dao.EmployeeMapper">
+    <resultMap id="employee" type="employee">
+        <id property="id" column="employee_id"/>
+        <result property="name" column="employee_name"/>
+        <result property="salary" column="salary"/>
+        <result property="dept_id" column="dept_id"/>
+        <association property="department" javaType="department">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="location" column="location"/>
+        </association>
+    </resultMap>
+    <select id="selectEmployeeById" resultMap="employee">
+        select d.id,d.name,d.location,e.id as employee_id,e.name as employee_name,e.salary,e.dept_id
+        from t_departments d join t_employees e on d.id=e.id where e.id = #{id}
+    </select>
+</mapper>

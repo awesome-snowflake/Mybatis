@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxf.dao.ManagerDao">
+    <resultMap id="manager" type="com.wxf.entity.Manager">
+        <id property="id" column="mgr_id"/>
+        <result property="name" column="mgr_name"/>
+        <result property="password" column="mgr_pwd"/>
+
+    </resultMap>
+    <select id="selectById" resultMap="manager">
+        select mgr_id,mgr_name,mgr_pwd from t_managers where mgr_id = #{id}
+    </select>
+</mapper>
